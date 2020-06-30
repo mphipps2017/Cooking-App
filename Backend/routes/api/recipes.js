@@ -30,11 +30,34 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const found = recipeModel.some(recipe => recipe.id === parseInt(req.params.id));
-    res.send(found);
     if(found && req.body.title !== '' && req.body.ingredients.length > 0 && req.body.instructions.length > 0){
-        res.send(found);
+        recipeModel.forEach(recipe =>{
+            if(recipe.id === parseInt(req.params.id)){
+                recipe.title = req.body.title;
+                recipe.ingredients = req.body.ingredients;
+                recipe.instructions = req.body.instructions;
+            }
+        });
+        res.send(recipeModel);
     } else {
         res.status(400).json({msg:`A field of data has not been filled in`});
+    }
+});
+
+router.delete('/:id', (req, res) => {
+    var found = -1;
+    for(var i = 0; i < recipeModel.length; i++){
+        if(recipeModel[i].id === parseInt(req.params.id)){
+            found = i;
+            break;
+        }
+    }
+
+    if(found !== -1){
+        recipeModel.splice(found,1);
+        res.send(recipeModel);
+    } else {
+        res.status(400).json({msg:`ID not found in DB`});
     }
 });
 
