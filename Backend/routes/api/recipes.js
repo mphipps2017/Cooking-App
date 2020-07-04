@@ -3,12 +3,22 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const recipeModel =  require('../../model/recipes');
 
+const Recipe = require('../../model/recipesMon'); // Change to /recipes when fully implemented
+
 router.get('/', (req, res) => {
     res.send(recipeModel);
 });
 
-router.get('/:id', (req,res)=>{
-    res.send(recipeModel.filter(recipe => recipe.id === parseInt(req.params.id)));
+// https://www.youtube.com/watch?v=WDrU305J1yw Tutorial for setting up and using mongoose.
+router.get('/:recipeId', (req,res)=>{
+    Recipe.findById(req.params.recipeId)
+    .then(doc =>{
+        res.status(200).json(doc);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({error: err});
+    });
 });
 
 router.post('/', (req, res) => {
@@ -22,7 +32,7 @@ router.post('/', (req, res) => {
         newRecipe.save((result) => {
             console.log(result);
         });
-        res.send(recipeModel);
+        res.send(newRecipe);
     } else {
         res.status(400).json({msg:`A field of data has not been filled in`});
     }
