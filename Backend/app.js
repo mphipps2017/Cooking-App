@@ -18,7 +18,7 @@ app.use('/api/recipes', require('./routes/api/recipes'));
 
 // Connect to DB
 // TODO install on mac, https://apple.stackexchange.com/questions/362883/mongodb-doesnt-work-after-update-to-macos-catalina-10-15
-mongoose.connect('mongodb://localhost:27017', () =>{
+mongoose.connect('mongodb+srv://matthew123:<gintama123>@cookappcluster.1fmzw.mongodb.net/<dbname>?retryWrites=true&w=majority', () =>{
   console.log('Connected to mongoDB!');
 });
 
