@@ -6,14 +6,25 @@ const recipeModel =  require('../../model/recipes');
 const Recipe = require('../../model/recipesMon'); // Change to /recipes when fully implemented
 
 router.get('/', (req, res) => {
-    res.send(recipeModel);
+    // Grabs all recipes
+    Recipe.find().then(docs =>{
+        res.status(200).json(docs);
+
+    })
+    .catch(err =>{
+        res.status(500).json({error:err});
+    });
 });
 
 // https://www.youtube.com/watch?v=WDrU305J1yw Tutorial for setting up and using mongoose.
 router.get('/:recipeId', (req,res)=>{
     Recipe.findById(req.params.recipeId)
     .then(doc =>{
-        res.status(200).json(doc);
+        if(doc){
+            res.status(200).json(doc);
+        } else {
+            res.status(404).json({msg:'Document not found with given ID'})
+        }
     })
     .catch(err =>{
         console.log(err);
@@ -30,9 +41,8 @@ router.post('/', (req, res) => {
             instructions: req.body.instructions
         });
         newRecipe.save((result) => {
-            console.log(result);
+            res.send(newRecipe);
         });
-        res.send(newRecipe);
     } else {
         res.status(400).json({msg:`A field of data has not been filled in`});
     }
@@ -54,21 +64,12 @@ router.put('/:id', (req, res) => {
     }
 });
 
-router.delete('/:id', (req, res) => {
-    var found = -1;
-    for(var i = 0; i < recipeModel.length; i++){
-        if(recipeModel[i].id === parseInt(req.params.id)){
-            found = i;
-            break;
-        }
-    }
-
-    if(found !== -1){
-        recipeModel.splice(found,1);
-        res.send(recipeModel);
-    } else {
-        res.status(400).json({msg:`ID not found in DB`});
-    }
+router.delete('/:recipeId', (req, res) => {
+    Recipe.remove({_id: req.params.recipeId}).then(result =>{
+        res.status(200).json(result);
+    }).catch(err => {
+        res.status(500).json({error:err});
+    });
 });
 
 module.exports = router;
