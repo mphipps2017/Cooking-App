@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const app = express();``
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+// Get passportjs set up https://www.youtube.com/watch?v=sakQbeRjgwg&list=PL4cUxeGkcC9jdm7QX143aMLAqyM-jTZ2x
 const logger = (req, res, next) => {
   console.log(`${req.originalUrl}`);
   next();
@@ -12,6 +13,7 @@ const logger = (req, res, next) => {
 // Use middleware
 app.use(logger);
 app.use(express.json());
+
 
 // Routes
 app.use(require('./routes/api'));
