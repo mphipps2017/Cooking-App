@@ -14,7 +14,7 @@ app.use(logger);
 app.use(express.json());
 
 // Routes
-app.use('/api/recipes', require('./routes/api/recipes'));
+app.use(require('./routes/api'));
 
 // Connect to DB
 // TODO install on mac, https://apple.stackexchange.com/questions/362883/mongodb-doesnt-work-after-update-to-macos-catalina-10-15

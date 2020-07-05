@@ -1,9 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const recipeModel =  require('../../model/recipes');
 
-const Recipe = require('../../model/recipesMon'); // Change to /recipes when fully implemented
+const Recipe = require('../model/recipes'); // Change to /recipes when fully implemented
 
 router.get('/', (req, res) => {
     // Grabs all recipes
@@ -16,8 +15,8 @@ router.get('/', (req, res) => {
     });
 });
 
-// https://www.youtube.com/watch?v=WDrU305J1yw Tutorial for setting up and using mongoose.
 router.get('/:recipeId', (req,res)=>{
+    // Finds the givens an object of the given model by it's id
     Recipe.findById(req.params.recipeId)
     .then(doc =>{
         if(doc){
@@ -40,6 +39,7 @@ router.post('/', (req, res) => {
             ingredients: req.body.ingredients,
             instructions: req.body.instructions
         });
+        // Saves the given model to the database
         newRecipe.save((result) => {
             res.send(newRecipe);
         });
@@ -48,24 +48,22 @@ router.post('/', (req, res) => {
     }
 });
 
-router.put('/:id', (req, res) => {
-    const found = recipeModel.some(recipe => recipe.id === parseInt(req.params.id));
-    if(found && req.body.title !== '' && req.body.ingredients.length > 0 && req.body.instructions.length > 0){
-        recipeModel.forEach(recipe =>{
-            if(recipe.id === parseInt(req.params.id)){
-                recipe.title = req.body.title;
-                recipe.ingredients = req.body.ingredients;
-                recipe.instructions = req.body.instructions;
-            }
-        });
-        res.send(recipeModel);
-    } else {
-        res.status(400).json({msg:`A field of data has not been filled in`});
+router.patch('/:recipeId', (req, res) => {
+    const updateOps = {};
+    for(const ops of req.body){
+        updateOps[ops.propName] = ops.value
     }
+    // Sets only the values listed in updateOps
+    Recipe.update({ _id : req.params.recipeId }, { $set: updateOps}).then(result => {
+        res.status(200).json(result);
+    }).catch(err => {
+        res.status(500).json({error:err});
+    });
 });
 
 router.delete('/:recipeId', (req, res) => {
-    Recipe.remove({_id: req.params.recipeId}).then(result =>{
+    // Removes the document with ID given for this model from the DB
+    Recipe.remove({ _id : req.params.recipeId }).then(result =>{
         res.status(200).json(result);
     }).catch(err => {
         res.status(500).json({error:err});
