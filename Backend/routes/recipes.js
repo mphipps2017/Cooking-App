@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
-const Recipe = require('../model/recipes'); // Change to /recipes when fully implemented
+const Recipe = require('../model/recipe'); // Change to /recipes when fully implemented
 
 router.get('/', (req, res) => {
     // Grabs all recipes

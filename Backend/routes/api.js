@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
 router.use('/recipes', require('./recipes'));
-router.use('/auth', require('./auth/auth-api.js'));
+router.use('/users', require('./users'));
 
 module.exports = router;
