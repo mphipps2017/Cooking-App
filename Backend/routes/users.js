@@ -4,6 +4,17 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../model/user');
 
+// See if can make it so only admins can use this
+router.get('/admin/all', (req, res) => {
+    User.find().then(docs =>{
+        res.status(200).json(docs);
+
+    })
+    .catch(err =>{
+        res.status(500).json({error:err});
+    });
+});
+
 router.get('/login', (req, res) =>{
     User.findOne({username: req.body.username}, (err, userInfo) =>{
         if(err){
@@ -49,6 +60,30 @@ router.post('/register', (req, res) => {
     } else {
         res.status(400).json({msg:`A field of data has not been filled in`});
     }
+});
+
+// Can update everything but the password
+router.patch('/:userId', (req, res) =>{
+    const updateOps = {};
+    for(const ops of req.body){
+        if(ops.propName !== 'password'){
+            updateOps[ops.propName] = ops.value;
+        }
+    }
+    // Sets only the values listed in updateOps
+    User.update({ _id : req.params.userId }, { $set: updateOps}).then(result => {
+        res.status(200).json(result);
+    }).catch(err => {
+        res.status(500).json({error:err});
+    });
+});
+
+router.delete('/:userId', (req, res) =>{
+    User.remove({ _id : req.params.userId }).then(result =>{
+        res.status(200).json(result);
+    }).catch(err => {
+        res.status(500).json({error:err});
+    });
 });
 
 module.exports = router;
