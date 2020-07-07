@@ -37,7 +37,9 @@ router.post('/', (req, res) => {
             _id: new mongoose.Types.ObjectId,
             title: req.body.title,
             ingredients: req.body.ingredients,
-            instructions: req.body.instructions
+            instructions: req.body.instructions,
+            toolsRequired: req.body.tools,
+            dishOrigin: req.body.origin
         });
         // Saves the given model to the database
         newRecipe.save((result) => {

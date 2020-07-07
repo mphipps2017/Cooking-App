@@ -9,10 +9,11 @@ router.get('/login', (req, res) =>{
         if(err){
             console.log(err);
         } else {
-            console.log('HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRREEEEEEEEEEEE');
             if(bcrypt.compareSync(req.body.password, userInfo.password)){
-                res.status(200).json({msg:`Login success! Welcome ${userInfo.username}`}, userInfo);
-                // Use some kind of tokenizer for login validation here.
+                res.status(200).json({msg:`Login success! Welcome ${userInfo.username}`,userInfo});
+                // Use some kind of tokenizer for login validation here, but validation works.
+            } else {
+                res.status(500).json({msg:'Incorrect username or password, try again.'})
             }
         }
     });
@@ -24,14 +25,9 @@ router.post('/register', (req, res) => {
             _id: new mongoose.Types.ObjectId,
             username: req.body.username,
             password: req.body.password,
-            email: req.body.email
-        });
-        newUser.save((err) =>{
-            if(err){
-                console.log(err);
-            } else{
-                res.status(200).json({msg:'Success! A new user has been created.'});
-            }
+            email: req.body.email,
+            level: 0,
+            achievements: []
         });
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) =>{
