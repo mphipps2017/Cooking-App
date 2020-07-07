@@ -63,7 +63,7 @@ router.post('/register', (req, res) => {
 });
 
 // Can update everything but the password
-router.patch('/:userId', (req, res) =>{
+router.patch('/updateUser/:userId', (req, res) =>{
     const updateOps = {};
     for(const ops of req.body){
         if(ops.propName !== 'password'){
@@ -75,6 +75,36 @@ router.patch('/:userId', (req, res) =>{
         res.status(200).json(result);
     }).catch(err => {
         res.status(500).json({error:err});
+    });
+});
+
+// Add method for server to make temp password and email user so that they can use that for validation and change
+router.patch('/passwordReset/', (req, res) => {
+    User.findOne({username: req.body.username}, (err, userInfo) =>{
+        if(err){
+            console.log(err);
+        } else {
+            if(bcrypt.compareSync(req.body.oldPassword, userInfo.password)){
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(req.body.newPassword, salt, (err, hash) =>{
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            newPass = {password : hash};
+                            User.update({ _id : userInfo._id }, { $set: newPass}).then(result => {
+                                res.status(200).json({msg:`Successfully reset password! Go back and relog`, result});
+                            }).catch(err => {
+                                res.status(500).json({error:err});
+                            });
+                        }
+                    });
+                });
+                // Use some kind of tokenizer for login validation here, but validation works.
+            } else {
+                res.status(500).json({msg:'password, try again.'})
+            }
+        }
     });
 });
 
