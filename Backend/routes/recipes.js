@@ -1,6 +1,5 @@
-const express = require('express');
+const router = require('express').Router();
 const mongoose = require('mongoose');
-const router = express.Router();
 
 const Recipe = require('../model/recipe'); // Change to /recipes when fully implemented
 
@@ -54,7 +53,7 @@ router.post('/', (req, res) => {
 router.patch('/:recipeId', (req, res) => {
     const updateOps = {};
     for(const ops of req.body){
-        updateOps[ops.propName] = ops.value
+        updateOps[ops.propName] = ops.value;
     }
     // Sets only the values listed in updateOps
     Recipe.update({ _id : req.params.recipeId }, { $set: updateOps}).then(result => {

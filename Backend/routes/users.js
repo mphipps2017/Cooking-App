@@ -31,35 +31,32 @@ router.get('/login', (req, res) =>{
 });
 
 router.post('/register', (req, res) => {
-    if(req.body.email && req.body.username && req.body.password){
-        const newUser = new User({
-            _id: new mongoose.Types.ObjectId,
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            level: 0,
-            achievements: []
+    const newUser = new User({
+        _id: new mongoose.Types.ObjectId,
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        level: 0,
+        achievements: []
+    });
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) =>{
+            if(err){
+                console.log(err);
+            }
+            else {
+                newUser.password = hash;
+                newUser.save((err) =>{
+                    if(err){
+                        console.log(err);
+                        res.status(400).json({msg:'A field was not filled out correctly, try again.'});
+                    } else {
+                        res.status(200).json({msg:'Success! A new user has been created.'});
+                    }
+                });
+            }
         });
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) =>{
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    newUser.password = hash;
-                    newUser.save((err) =>{
-                        if(err){
-                            console.log(err);
-                        } else{
-                            res.status(200).json({msg:'Success! A new user has been created.'});
-                        }
-                    });
-                }
-            });
-        });
-    } else {
-        res.status(400).json({msg:`A field of data has not been filled in`});
-    }
+    });
 });
 
 // Can update everything but the password
@@ -100,7 +97,6 @@ router.patch('/passwordReset/', (req, res) => {
                         }
                     });
                 });
-                // Use some kind of tokenizer for login validation here, but validation works.
             } else {
                 res.status(500).json({msg:'password, try again.'})
             }
