@@ -26,28 +26,28 @@ router.get('/:recipeId', (req,res)=>{
     })
     .catch(err =>{
         console.log(err);
-        res.status(500).json({error: err});
+        res.status(400).json({error: err});
     });
 });
 
 router.post('/', (req, res) => {
-    if(req.body.title !== '' && req.body.ingredients.length > 0 && req.body.instructions.length > 0){
-        const newRecipe = new Recipe({
-            _id: new mongoose.Types.ObjectId,
-            title: req.body.title,
-            ingredients: req.body.ingredients,
-            instructions: req.body.instructions,
-            toolsRequired: req.body.tools,
-            dishOrigin: req.body.origin,
-            difficulty: req.body.difficulty
-        });
-        // Saves the given model to the database
-        newRecipe.save((result) => {
-            res.send(newRecipe);
-        });
-    } else {
-        res.status(400).json({msg:`A field of data has not been filled in`});
-    }
+    const newRecipe = new Recipe({
+        _id: new mongoose.Types.ObjectId,
+        title: req.body.title,
+        ingredients: req.body.ingredients,
+        instructions: req.body.instructions,
+        toolsRequired: req.body.tools,
+        dishOrigin: req.body.origin,
+        difficulty: req.body.difficulty
+    });
+    // Saves the given model to the database
+    newRecipe.save((err) => {
+        if(err){
+            res.status(400).json({msg: 'A field was not filled in'});
+        } else {
+            res.status(200).json({msg: `Successfully added a new ${newRecipe.title} recipe!`, newRecipe});
+        }
+    });
 });
 
 router.patch('/:recipeId', (req, res) => {
@@ -59,7 +59,7 @@ router.patch('/:recipeId', (req, res) => {
     Recipe.update({ _id : req.params.recipeId }, { $set: updateOps}).then(result => {
         res.status(200).json(result);
     }).catch(err => {
-        res.status(500).json({error:err});
+        res.status(400).json({error:err});
     });
 });
 
@@ -68,7 +68,7 @@ router.delete('/:recipeId', (req, res) => {
     Recipe.remove({ _id : req.params.recipeId }).then(result =>{
         res.status(200).json(result);
     }).catch(err => {
-        res.status(500).json({error:err});
+        res.status(400).json({error:err});
     });
 });
 
