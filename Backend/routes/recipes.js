@@ -39,7 +39,8 @@ router.post('/', (req, res) => {
             ingredients: req.body.ingredients,
             instructions: req.body.instructions,
             toolsRequired: req.body.tools,
-            dishOrigin: req.body.origin
+            dishOrigin: req.body.origin,
+            difficulty: req.body.difficulty
         });
         // Saves the given model to the database
         newRecipe.save((result) => {
