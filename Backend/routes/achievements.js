@@ -5,7 +5,6 @@ const Achievement = require('../model/achievement');
 router.get('/', (req, res)=>{
     Achievement.find().then(docs =>{
         res.status(200).json(docs);
-
     })
     .catch(err =>{
         res.status(500).json({error:err});
@@ -37,7 +36,6 @@ router.post('/', (req, res) => {
     // Saves the given model to the database
     newAchievement.save((err) => {
         if(err){
-            console.log(err);
             res.status(400).json({msg:`A field of data has not been filled in`});
         } else {
             res.status(200).json({msg:`Success! New achievement ${newAchievement.title} uploaded.`,newAchievement});

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:recipeId', (req,res)=>{
+router.get('/byId/:recipeId', (req,res)=>{
     // Finds the givens an object of the given model by it's id
     Recipe.findById(req.params.recipeId)
     .then(doc =>{
@@ -30,6 +30,24 @@ router.get('/:recipeId', (req,res)=>{
     });
 });
 
+// Input searches as [{propName: "propName", value:"Value to be searched by"}, {more filters....} ]
+router.get('/filterSearch', (req, res)=>{
+    const searchOps = {};
+    for(const ops of req.body){
+        searchOps[ops.propName] = ops.value;
+    }
+
+    Recipe.find(searchOps, (err, recipes)=>{
+        if(recipes && recipes.length > 0){
+            res.status(200).json(recipes);
+        } else {
+            res.status(404).json({msg:'No docs found'});
+        }
+    }).catch(err =>{
+        res.status(400).json({error:err});
+    });
+});
+
 router.post('/', (req, res) => {
     const newRecipe = new Recipe({
         _id: new mongoose.Types.ObjectId,
@@ -37,13 +55,14 @@ router.post('/', (req, res) => {
         ingredients: req.body.ingredients,
         instructions: req.body.instructions,
         toolsRequired: req.body.tools,
-        dishOrigin: req.body.origin,
+        dishOrigin: req.body.dishOrigin,
         difficulty: req.body.difficulty
     });
     // Saves the given model to the database
     newRecipe.save((err) => {
         if(err){
-            res.status(400).json({msg: 'A field was not filled in'});
+            console.log(err);
+            res.status(400).json({msg: 'Failed Validation'});
         } else {
             res.status(200).json({msg: `Successfully added a new ${newRecipe.title} recipe!`, newRecipe});
         }
