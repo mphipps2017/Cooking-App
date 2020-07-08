@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../model/user');
 
 // See if can make it so only admins can use this
-router.get('/admin/all', (req, res) => {
+router.get('/all', (req, res) => {
     User.find().then(docs =>{
         res.status(200).json(docs);
 
@@ -37,7 +37,9 @@ router.post('/register', (req, res) => {
         password: req.body.password,
         email: req.body.email,
         level: 0,
-        achievements: []
+        achievements: [],
+        tools: [],
+        recipes: []
     });
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) =>{

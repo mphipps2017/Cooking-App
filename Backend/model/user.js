@@ -16,8 +16,9 @@ const UserSchema = mongoose.Schema({
         validate: validateEmail
     },
     level: Number,
-    Achievements: Array
-    // Add one for what dishes this user has cooked and how many they have cooked.
+    achievements: Array, // Contains objects [{'achivementId': _id, 'achievementName': title},...]
+    tools: Array, // [toolName]
+    recipes: Array // Contains objects [{"recipeId": _id, "recipeTitle":title, "timesCooked":#, "favorite": true}]
 });
 
 // VALIDATION
