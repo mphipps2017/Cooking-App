@@ -35,7 +35,7 @@ router.get('/filterSearch', (req, res)=>{
     const searchOps = {};
     for(const ops of req.body){
         if(ops.propName === 'title'){
-            searchOps['$text'] = {'$search': ops.value}; // TODO createIndex for recipes collection
+            searchOps['$text'] = {'$search': ops.value};
         } else {
             searchOps[ops.propName] = ops.value;
         }
