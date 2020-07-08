@@ -15,7 +15,7 @@ const UserSchema = mongoose.Schema({
         required: true,
         validate: validateEmail
     },
-    level: Number,
+    experience: Number,
     achievements: Array, // Contains objects [{'achivementId': _id, 'achievementName': title},...]
     tools: Array, // [toolName]
     recipes: Array // Contains objects [{"recipeId": _id, "recipeTitle":title, "timesCooked":#, "favorite": true}]

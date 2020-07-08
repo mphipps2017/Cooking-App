@@ -36,7 +36,7 @@ router.post('/register', (req, res) => {
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
-        level: 0,
+        experience: 0,
         achievements: [],
         tools: [],
         recipes: []

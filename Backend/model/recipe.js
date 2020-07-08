@@ -6,7 +6,8 @@ const recipeSchema = mongoose.Schema({
     instructions: {type:Array, required: true},
     toolsRequired: {type:Array, required: true},
     dishOrigin: {type:String, required: true},
-    difficulty: {type:Number, required: true}
+    difficulty: {type:Number, required: true},
+    experience: {type:Number, required: true}
 });
 
 module.exports = mongoose.model('Recipe', recipeSchema);
