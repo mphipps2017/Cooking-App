@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const recipeNoteSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     timesCooked: Number,
-    notes: Array,
+    notes: Array, // Saved as [{content, dateCreated}, {}.....]
     userId: mongoose.Schema.Types.ObjectId,
     recipeId: mongoose.Schema.Types.ObjectId
 });

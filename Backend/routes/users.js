@@ -39,7 +39,8 @@ router.post('/register', (req, res) => {
         experience: 0,
         achievements: [],
         tools: [],
-        priveousRecipes: []
+        totalDishesCooked: 0,
+        favoriteRecipes:[]
     });
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) =>{
