@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
-const noteSchema = mongoose.Schema({
+const recipeNoteSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    date_Updated: Date,
-    content: String,
+    timesCooked: Number,
+    notes: Array,
     userId: mongoose.Schema.Types.ObjectId,
     recipeId: mongoose.Schema.Types.ObjectId
 });
 
 // Middleware
+/*
 noteSchema.pre('save', function(next){
     this.date_Updated = new Date();
     next();
 });
+*/
 
-module.exports = mongoose.model('Note', noteSchema);
+module.exports = mongoose.model('Note', recipeNoteSchema);

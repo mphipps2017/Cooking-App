@@ -18,7 +18,7 @@ const UserSchema = mongoose.Schema({
     experience: Number,
     achievements: Array, // Contains objects [{'achivementId': _id, 'achievementName': title},...]
     tools: Array, // [toolName]
-    priveousRecipes: Array // Contains objects [{"recipeId": _id, "recipeTitle":title, "timesCooked":#, "favorite": true}]
+    totalDishesCooked: Number
 });
 
 // VALIDATION
