@@ -115,4 +115,17 @@ router.delete('/:userId', (req, res) =>{
     });
 });
 
+// recipeId and name needed
+router.patch('/addToFavorites/:userId', (req,res)=>{
+    User.updateOne({ _id: req.params.userId },
+        {$push:{favoriteRecipes:{
+            recipeId: req.body.recipeId,
+            title: req.body.title
+        }}}).then(result =>{
+            res.status(200).json(result);
+        }).catch(err=>{
+            res.status(400).json(err);
+        });
+});
+
 module.exports = router;
