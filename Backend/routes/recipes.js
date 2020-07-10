@@ -30,6 +30,29 @@ router.get('/byId/:recipeId', (req,res)=>{
     });
 });
 
+// Like an autocomplete type search (similar to netflix) works with titles of recipes
+router.get('/quickSearch', (req,res)=>{
+    Recipe.find({'$text':{'$search':req.body.searchValue}}).then(docs=>{
+        res.status(200).json(docs);
+    }).catch(err=>{
+        res.status(400).json({msg:`Something went wrong :(`});
+    });
+});
+
+// Returns all dishes within 2 difficulty of the given value (both below and above)
+router.get('/difficulty', (req, res)=>{
+    let queryVals = [];
+    for(let i = 0; i < 5; i++){
+        queryVals.push(req.body.difficulty+i-2);
+    }
+    Recipe.find({difficulty:{$in:queryVals}})
+    .then(docs=>{
+        res.status(200).json(docs);
+    }).catch(err=>{
+        res.status(400).json(err);
+    });
+});
+
 // Input searches as [{propName: "propName", value:"Value to be searched by"}, {more filters....} ]
 router.get('/filterSearch', (req, res)=>{
     const searchOps = {};

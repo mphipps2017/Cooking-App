@@ -6,8 +6,8 @@ const recipeSchema = mongoose.Schema({
     instructions: {type:Array, required: true},
     toolsRequired: {type:Array, required: true},
     dishOrigin: {type:String, required: true},
-    difficulty: {type:Number, required: true},
-    experience: {type:Number, required: true},
+    difficulty: {type:Number, required: true, min:1, max:10},
+    experience: {type:Number, required: true, min:0},
     tags: {type:Array}
 });
 
