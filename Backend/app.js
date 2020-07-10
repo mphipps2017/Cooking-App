@@ -5,15 +5,17 @@ const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-const logger = (req, res, next) => {
-  console.log(`${req.originalUrl}`);
-  next();
+const sessionTracker = (req, res, next) => {
+  if(req.session.userId === undefined && req.originalUrl !== '/users/login'){
+    res.status(400).json({msg:'Not logged in, must sign in before you can use this function.'})
+  } else {
+    next();
+  }
 }
 
 // Use middleware
 app.use(session({ secret: 'funnyPicAtChristmasParty', resave:false, saveUninitialized: true }));
-app.use(logger);
+app.use(sessionTracker);
 app.use(express.json());
 
 

@@ -20,9 +20,8 @@ router.get('/login', (req, res) =>{
             console.log(err);
         } else {
             if(bcrypt.compareSync(req.body.password, userInfo.password)){
-                req.session.loggedin = true;
+                req.session.userId = userInfo._id;
                 res.status(200).json({msg:`Login success! Welcome ${userInfo.username}`,userInfo});
-                // Use some kind of tokenizer for login validation here, but validation works.
             } else {
                 res.status(500).json({msg:'Incorrect username or password, try again.'})
             }
