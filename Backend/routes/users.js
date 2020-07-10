@@ -8,7 +8,6 @@ const User = require('../model/user');
 router.get('/all', (req, res) => {
     User.find().then(docs =>{
         res.status(200).json(docs);
-
     })
     .catch(err =>{
         res.status(500).json({error:err});
@@ -21,6 +20,7 @@ router.get('/login', (req, res) =>{
             console.log(err);
         } else {
             if(bcrypt.compareSync(req.body.password, userInfo.password)){
+                req.session.loggedin = true;
                 res.status(200).json({msg:`Login success! Welcome ${userInfo.username}`,userInfo});
                 // Use some kind of tokenizer for login validation here, but validation works.
             } else {

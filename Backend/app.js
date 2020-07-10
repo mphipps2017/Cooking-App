@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const passport = require('passport');
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +12,7 @@ const logger = (req, res, next) => {
 }
 
 // Use middleware
+app.use(session({ secret: 'funnyPicAtChristmasParty', resave:false, saveUninitialized: true }));
 app.use(logger);
 app.use(express.json());
 
