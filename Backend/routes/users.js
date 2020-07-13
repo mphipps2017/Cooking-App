@@ -14,7 +14,7 @@ router.get('/all', (req, res) => {
     });
 });
 
-router.get('/login', (req, res) =>{
+router.post('/login', (req, res) =>{
     User.findOne({username: req.body.username}, (err, userInfo) =>{
         if(err){
             console.log(err);
