@@ -90,7 +90,11 @@ router.patch('/updateNote/:recipeNoteId', (req,res)=>{
 // Include experience gained from recipe in body
 router.patch('/incrementTimesCooked/:noteId', (req,res)=>{
     recipeNote.updateOne({_id:req.params.noteId}, {$inc:{timesCooked:1}}).then(result =>{
-        User.updateOne({_id:req.body.userId}, {$inc:{totalDishesCooked:1, experience: req.body.exp}}).then(finRes =>{
+        User.updateOne({_id:req.body.userId}, 
+                {$inc:{totalDishesCooked:1, 
+                experience: req.body.exp}, 
+                lastCookedMeal: {date:new.Date(), recipeId:req.body.recipeId, title:req.body.recipeTitle}})
+            .then(finRes =>{
             res.status(200).json({result,finRes});
         });
     }).catch(err=>{

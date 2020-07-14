@@ -8,7 +8,8 @@ const recipeSchema = mongoose.Schema({
     dishOrigin: {type:String, required: true},
     difficulty: {type:Number, required: true, min:1, max:10},
     experience: {type:Number, required: true, min:0},
-    tags: {type:Array}
+    tags: {type:Array},
+    timing: {type:Object}
 });
 
 module.exports = mongoose.model('Recipe', recipeSchema);

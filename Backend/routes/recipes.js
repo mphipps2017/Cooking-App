@@ -85,7 +85,8 @@ router.post('/', (req, res) => {
         dishOrigin: req.body.dishOrigin,
         difficulty: req.body.difficulty,
         experience: req.body.experience, // Experience given upon completion
-        tags: (req.body.tags ? req.body.tags : [])
+        tags: (req.body.tags ? req.body.tags : []),
+        timing: {prepTime: req.body.prepTime, cookTime: req.body.cookTime}
     });
     // Saves the given model to the database
     newRecipe.save((err) => {
