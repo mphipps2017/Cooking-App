@@ -93,7 +93,7 @@ router.patch('/incrementTimesCooked/:noteId', (req,res)=>{
         User.updateOne({_id:req.body.userId}, 
                 {$inc:{totalDishesCooked:1, 
                 experience: req.body.exp}, 
-                lastCookedMeal: {date:new.Date(), recipeId:req.body.recipeId, title:req.body.recipeTitle}})
+                lastCookedMeal: {date:new Date(), recipeId:req.body.recipeId, title:req.body.recipeTitle}})
             .then(finRes =>{
             res.status(200).json({result,finRes});
         });

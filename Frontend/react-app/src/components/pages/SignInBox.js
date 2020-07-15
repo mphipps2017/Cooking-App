@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './SignInBox.module.css';
 import axios from 'axios';
 
+import ListForm from '../forms/listform/ListForm';
+
 class SignInBox extends React.Component{
     constructor(props){
         super(props);
@@ -19,34 +21,21 @@ class SignInBox extends React.Component{
         }
     }
 
-    handleSubmit(event){
+    handleSubmit(logInInfo){
         console.log('Submiting request....');
-        const logInInfo = {
-            username: this.state.username,
-            password: this.state.password
-        }
         axios.post('/users/login', logInInfo)
         .then(res => {
-            alert(`Successfully logged in as ${this.state.username}`);
+            alert(`Successfully logged in as ${logInInfo.username}`);
         }).catch(err =>{
             console.log(err);
         })
-        event.preventDefault();
     }
 
     render(){
         return(
             <div className={styles.wrapper}>
                 <h1>Logo goes here</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        <input type="text" value={this.state.username} onChange={this.handleChange} placeholder="username" />
-                        <br />
-                        <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="password" />
-                    </label>
-                    <br />
-                    <input type="submit" value="Sign In" />
-                </form>
+                <ListForm values={['username', 'password']} buttonText="Sign-in" onSubmit={this.handleSubmit}/>
             </div>
         )
     }

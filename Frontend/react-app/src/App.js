@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import SignInBox from './components/SignInBox'
+import SignInBox from './components/pages/SignInBox';
 
 function App() {
   return (
