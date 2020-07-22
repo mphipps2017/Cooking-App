@@ -8,6 +8,8 @@ class Navbar extends React.Component{
         return(
             <div className={Styles.wrapper}>
                 <div className={Styles.leftItems}>
+                    <div className={Styles.tempLogoLeft} />
+                    <div className={Styles.tempLogoRight} />
                     <a href="a link">About</a>
                     <a href="a link">F.A.Q</a>
                 </div>

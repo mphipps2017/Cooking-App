@@ -36,16 +36,18 @@ class ListForm extends React.Component{
             <form onSubmit={(e) => {
                 e.preventDefault();
                 return this.props.onSubmit(this.state)}}>
-                <label>
-                    {this.props.values.map(value =>
-                    <div className={Styles.wrapper} key={value} >
-                        <input type={value === 'password'?'password':'text'} value={this.state[value]} onChange={this.handleChange} placeholder={value} />
-                        <br />
-                    </div>
-                    )}
-                </label>
-                <br />
-                <input type="submit" value={this.props.buttonText}/>
+                <div className={Styles.wrapper}>
+                    <label>
+                        {this.props.values.map(value =>
+                        <div key={value} >
+                            <input type={value === 'password'?'password':'text'} value={this.state[value]} onChange={this.handleChange} placeholder={value} />
+                            <br />
+                        </div>
+                        )}
+                    </label>
+                    <br />
+                    <input type="submit" class={Styles.button} value={this.props.buttonText}/>
+                </div>
             </form>
         )
     }

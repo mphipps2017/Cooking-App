@@ -8,8 +8,27 @@
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
+    padding: .2em;
 }
 
 .wrapper a{
+    color: var(--primaryTextColor);
     margin:.5em;
+}
+
+.tempLogoLeft{
+    margin-left: 1em;
+    height:2em;
+    width: 1em;
+    background-color: #FF6666;
+}
+.tempLogoRight{
+    height: 2em;
+    width: 1em;
+    background-color: #ccff66;
+}
+
+.leftItems{
+    display: flex;
+    flex-direction: row;
 }

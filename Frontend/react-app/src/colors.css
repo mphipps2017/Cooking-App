@@ -1,4 +1,5 @@
 :root{
-    
-    --secondaryBackgroundColor: #F0F0F0;
+    --primaryTextColor: #000000;
+    --secondaryBackgroundColor: #FFFFFF;
+    --backgroundColor: #DFE9DF;
 }
