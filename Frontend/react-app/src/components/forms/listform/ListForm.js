@@ -11,6 +11,8 @@ import Styles from './ListForm.module.css';
  *   onSubmit: A function that takes the values from forms as an input
  *     ex. if values = ['username', 'password'] then onsubmit
  *         will bec alled with {username: 'value', password: 'value'}
+ *   component: A function that should return the JSX of a component to be rendered below the form.
+ *     ex. For example on the sign in page we have the "forgot your password link" and "sign-up" link
 */
 class ListForm extends React.Component{
     constructor(props){
@@ -45,6 +47,7 @@ class ListForm extends React.Component{
                         </div>
                         )}
                     </label>
+                    {this.props.component()}
                     <br />
                     <input type="submit" class={Styles.button} value={this.props.buttonText}/>
                 </div>
@@ -56,7 +59,8 @@ class ListForm extends React.Component{
 ListForm.propTypes = {
     values: PropTypes.array,
     buttonText: PropTypes.string,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    component: PropTypes.func
 }
 
 export default ListForm;

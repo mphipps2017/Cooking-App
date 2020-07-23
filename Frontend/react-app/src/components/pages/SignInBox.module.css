@@ -1,3 +1,4 @@
+@import "../../colors.css";
 .wrapper{
     display:flex;
     justify-content: center;
@@ -7,8 +8,18 @@
     width:30%;
     height: 12em;
     padding: 1em;
+    position: relative;
 }
 
 .wrapper h1{
     color: #0b5563
+}
+
+.accountManagementLinks{
+    display: flex;
+    flex-direction: column;
+}
+
+.accountManagementLinks a{
+    color: var(--primaryTextColor);
 }

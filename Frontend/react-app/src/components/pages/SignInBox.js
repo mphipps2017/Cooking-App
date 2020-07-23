@@ -32,10 +32,18 @@ class SignInBox extends React.Component{
     }
 
     render(){
+        const component = () =>{
+            return(
+                <div className={styles.accountManagementLinks}>
+                    <a href="a link">Forgot your password?</a>
+                    <a href="a link">Sign Up</a>
+                </div>
+            );
+        }
         return(
             <div className={styles.wrapper}>
                 <h1>Logo goes here</h1>
-                <ListForm values={['username', 'password']} buttonText="Sign-in" onSubmit={this.handleSubmit}/>
+                <ListForm values={['username', 'password']} buttonText="Sign-in" onSubmit={this.handleSubmit} component={component}/>
             </div>
         )
     }

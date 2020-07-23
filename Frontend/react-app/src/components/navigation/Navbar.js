@@ -2,7 +2,7 @@ import React from 'react';
 import Styles from './Navbar.module.css';
 // Probably will need to replace all the hrefs with this in future
 // import {Link, withRouter} from 'react-router-dom';
-// TODO proptypes
+// TODO proptypes if I use em
 class Navbar extends React.Component{
     render(){
         return(
