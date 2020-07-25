@@ -41,7 +41,7 @@ class ListForm extends React.Component{
                 <div className={Styles.wrapper}>
                     <label>
                         {this.props.values.map(value =>
-                        <div key={value} >
+                        <div className={Styles.textInputs}key={value} >
                             <input type={value === 'password'?'password':'text'} value={this.state[value]} onChange={this.handleChange} placeholder={value} />
                             <br />
                         </div>
@@ -49,7 +49,7 @@ class ListForm extends React.Component{
                     </label>
                     {this.props.component()}
                     <br />
-                    <input type="submit" class={Styles.button} value={this.props.buttonText}/>
+                    <input type="submit" className={Styles.button} value={this.props.buttonText}/>
                 </div>
             </form>
         )

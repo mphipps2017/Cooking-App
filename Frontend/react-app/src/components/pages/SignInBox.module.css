@@ -6,7 +6,6 @@
     flex-direction: column;
     background-color: #ffffff;
     width:30%;
-    height: 12em;
     padding: 1em;
     position: relative;
 }
@@ -18,6 +17,11 @@
 .accountManagementLinks{
     display: flex;
     flex-direction: column;
+    width: 21em;
+}
+
+.accountManagementLinks a{
+    align-self: flex-start;
 }
 
 .accountManagementLinks a{

@@ -14,7 +14,7 @@ const sessionTracker = (req, res, next) => {
 }
 
 // Use middleware
-app.use(session({ secret: 'funnyPicAtChristmasParty', resave:false, saveUninitialized: true }));
+app.use(session({ secret: 'funnyPicAtChristmasParty', resave:false, saveUninitialized: true, cookie:{httpOnly:false} }));
 app.use(sessionTracker);
 app.use(express.json());
 

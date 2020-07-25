@@ -25,7 +25,7 @@ class SignInBox extends React.Component{
         console.log('Submiting request....');
         axios.post('/users/login', logInInfo)
         .then(res => {
-            alert(`Successfully logged in as ${logInInfo.username}`);
+            this.props.retrieveLogInStatus(true);
         }).catch(err =>{
             console.log(err);
         })
