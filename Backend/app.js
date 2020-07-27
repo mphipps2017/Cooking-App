@@ -5,6 +5,7 @@ const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Where logic should go to check session Log
 const sessionTracker = (req, res, next) => {
   if(req.session.userId === undefined && req.originalUrl !== '/users/login'){
     res.status(400).json({msg:'Not logged in, must sign in before you can use this function.'})

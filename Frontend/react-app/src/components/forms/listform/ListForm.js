@@ -23,7 +23,6 @@ class ListForm extends React.Component{
             temp[value] = "";
         }
         this.state = temp;
-
         this.handleChange = this.handleChange.bind(this);
     }
 
