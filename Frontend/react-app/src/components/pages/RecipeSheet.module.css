@@ -1,0 +1,68 @@
+@import "../../colors.css";
+
+.sheetWrapper{
+    background-color: var(--secondaryBackgroundColor);
+    width: 80%;
+    padding-left:1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
+
+.ingredients{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.ingredientBlock{
+    margin-left: 1em;
+}
+
+.ingredientBlock div{
+    display: inline-block;
+}
+
+.ingredientBlock p{
+    display: inline-block;
+    margin-left: .5em;
+}
+
+.header h1{
+    display: inline-block;
+}
+
+.header p{
+    display: inline-block;
+    color: #646464;
+    margin-left: .5em;
+}
+
+.tools{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tools li{
+    margin-left: .75em;
+    color: #c4c4c4;
+}
+
+.tools li span{
+    position: relative;
+    left: -.5em;
+    color: black;
+}
+.step{
+    margin:1.2em;
+}
+.step h2{
+    display: inline-block;
+    text-decoration: underline;
+    margin-bottom: 0;
+}
+
+.step div{
+    margin-left: 1em;
+    display: inline-block;
+}

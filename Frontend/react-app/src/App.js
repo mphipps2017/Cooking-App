@@ -17,7 +17,13 @@ class App extends React.Component{
       <div className="App">
         <SignInBox retrieveLogInStatus={this.callbackFunction}/>
         <p>{this.state.loggedIn ? ('Logged in'):('Not logged in')}</p>
-        <RecipeSheet RecipeName="Meatballs" prepTime={5} cookTime={10} />
+        <RecipeSheet
+          RecipeName="Meatballs" 
+          prepTime={5} 
+          cookTime={10} 
+          ingredients={['fud','crud', 'mud', 'dud', 'spud']} 
+          tools={['Pan','Pot']}
+          directions={['Lorem ipsum']}/>
       </div>
     );
   }
