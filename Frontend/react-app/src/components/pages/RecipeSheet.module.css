@@ -33,8 +33,12 @@
 
 .header p{
     display: inline-block;
-    color: #646464;
+    color: var(--secondaryTextColor);
     margin-left: .5em;
+}
+
+.times p{
+    color: #646464;
 }
 
 .tools{
@@ -45,7 +49,7 @@
 
 .tools li{
     margin-left: .75em;
-    color: #c4c4c4;
+    color: var(--secondaryTextColor);
 }
 
 .tools li span{

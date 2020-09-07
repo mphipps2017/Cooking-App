@@ -23,7 +23,7 @@ class App extends React.Component{
           cookTime={10} 
           ingredients={['fud','crud', 'mud', 'dud', 'spud']} 
           tools={['Pan','Pot']}
-          directions={['Lorem ipsum']}/>
+          directions={['Lorem ipsum', 'How about anotha?']}/>
       </div>
     );
   }

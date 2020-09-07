@@ -29,6 +29,10 @@ const RecipeSheet = ({RecipeName, cookTime, prepTime, ingredients, tools, direct
                 <h1>{RecipeName}</h1>
                 <p>{prepTime+cookTime} Minutes</p>
             </div>
+            <div className={Styles.times}>
+                <p>Prep Time: {prepTime} Minutes</p>
+                <p>Cook Time: {cookTime} Minutes</p>
+            </div>
             <h2>Ingredients</h2>
             <div className={Styles.ingredients}>
                 {ingredientsList}
