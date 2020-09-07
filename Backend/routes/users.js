@@ -19,7 +19,7 @@ router.post('/login', (req, res) =>{
         if(err){
             console.log(err);
         } else {
-            if(bcrypt.compareSync(req.body.password, userInfo.password)){
+            if(userInfo != null && bcrypt.compareSync(req.body.password, userInfo.password)){
                 req.session.userId = userInfo._id;
                 res.status(200).json({msg:`Login success! Welcome ${userInfo.username}`,userInfo});
             } else {
