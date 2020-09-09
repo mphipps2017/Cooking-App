@@ -7,8 +7,7 @@ const PORT = process.env.PORT || 5000;
 
 // Where logic should go to check session Log
 const sessionTracker = (req, res, next) => {
-  // TODO make it so you can register without being logged in
-  if(req.session.userId === undefined && (req.originalUrl !== '/users/login')){
+  if(req.session.userId === undefined && (req.originalUrl !== '/users/login') && (req.originalUrl !== '/users/register')){
     res.status(400).json({msg:'Not logged in, must sign in before you can use this function.'})
   } else {
     next();
